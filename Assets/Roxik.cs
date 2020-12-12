@@ -40,7 +40,7 @@ public class Roxik : MonoBehaviour
 
                     sphere.AddComponent<MotionProperties>();
                     var sphereRenderer = sphere.GetComponent<Renderer>();
-                    sphereRenderer.material.SetColor("_Color", colors[random.Next(colors.Length)]);
+                    sphereRenderer.material.color = colors[random.Next(colors.Length)];
                     sphereRenderer.material.SetFloat("_Metallic", 0.3f);
 
                     Models.Add(sphere);
