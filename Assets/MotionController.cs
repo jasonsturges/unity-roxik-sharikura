@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using Random = System.Random;
 
@@ -167,9 +167,9 @@ public class MotionController : MonoBehaviour
     {
         var random = new Random();
         var a = random.NextDouble() * 0.05f + 0.022f;
-        var v = 0.02f + random.NextDouble() * 0.025f;
+        var v = random.NextDouble() * 0.025f + 0.02f;
         var dx = -v * Roxik.Models.Count * 0.44f;
-        var d = 1.2f + random.NextDouble();
+        var d = random.NextDouble() + 1.2f;
 
         for (var i = 0; i < Roxik.Models.Count; i++)
         {
