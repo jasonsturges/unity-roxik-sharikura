@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using Random = System.Random;
 
@@ -14,7 +14,7 @@ public class MotionController : MonoBehaviour
     private float _rp;
     private float _rl;
 
-    private void ChangeScene(MotionType motionType, int limit = -1)
+    private void ChangeMotion(MotionType motionType, int limit = -1)
     {
         Random random = new Random();
         _motionType = motionType;
@@ -433,6 +433,6 @@ public class MotionController : MonoBehaviour
         }
 
         if (++_frame > _sceneLimit)
-            ChangeScene((MotionType)Enum.GetValues(typeof(MotionType)).GetValue(random.Next(0, 7)));
+            ChangeMotion((MotionType)Enum.GetValues(typeof(MotionType)).GetValue(random.Next(0, 7)));
     }
 }
