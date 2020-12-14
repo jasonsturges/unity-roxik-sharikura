@@ -4,10 +4,10 @@ using Random = System.Random;
 
 public class CameraController : MonoBehaviour
 {
-    private GameObject _tm;
     private Camera _camera;
-    private Vector3 _target = new Vector3(0, 0, 0);
     private int _sceneLimit = 90;
+    private Vector3 _target = new Vector3(0, 0, 0);
+    private GameObject _targetModel;
     private float bl = 6.0f;
     private float rp = 0.03f;
     private float cs;
@@ -15,7 +15,6 @@ public class CameraController : MonoBehaviour
     private float l;
     private float ts;
     private float r;
-
 
     private void Awake()
     {
@@ -30,7 +29,7 @@ public class CameraController : MonoBehaviour
         if (Time.frameCount % _sceneLimit == 1)
         {
             _sceneLimit = random.Next(45, 90);
-            _tm = Roxik.Models[random.Next(Roxik.Models.Count)];
+            _targetModel = Roxik.Models[random.Next(Roxik.Models.Count)];
             ts = 0.0f;
             cs = 0.0f;
             gy = (float)(random.NextDouble() * 8) - 4;
@@ -47,7 +46,7 @@ public class CameraController : MonoBehaviour
         r += rp;
         l += (bl - l) * 0.1f;
 
-        var targetPosition = _tm.transform.position;
+        var targetPosition = _targetModel.transform.position;
         _target.x += (targetPosition.x - _target.x) * ts;
         _target.y += (targetPosition.y - _target.y) * ts;
         _target.z += (targetPosition.z - _target.z) * ts;
@@ -55,11 +54,9 @@ public class CameraController : MonoBehaviour
         var cameraPosition = _camera.transform.position;
         cameraPosition = new Vector3
         {
-            x = (float)(cameraPosition.x +
-                        (Math.Cos(r) * l + targetPosition.x - cameraPosition.x) * cs),
+            x = (float)(cameraPosition.x + (Math.Cos(r) * l + targetPosition.x - cameraPosition.x) * cs),
             y = cameraPosition.y + (targetPosition.y + gy - cameraPosition.y) * cs,
-            z = (float)(cameraPosition.z +
-                        (Math.Sin(r) * l + targetPosition.z - cameraPosition.z) * cs)
+            z = (float)(cameraPosition.z + (Math.Sin(r) * l + targetPosition.z - cameraPosition.z) * cs)
         };
 
         Transform cameraTransform = _camera.transform;

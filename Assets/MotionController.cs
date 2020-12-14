@@ -65,19 +65,19 @@ public class MotionController : MonoBehaviour
             p.speed = 0;
             p.acceleration = (float)random.NextDouble() * 0.05f + 0.022f;
             p.animate = false;
-            p.dest = new Vector3();
+            p.destination = new Vector3();
 
             if (i < Roxik.Models.Count - 50)
             {
-                p.dest.x = (float)Math.Cos(n) * 4;
-                p.dest.y = i * 0.008f - (Roxik.Models.Count - 50) * 0.004f;
-                p.dest.z = (float)Math.Sin(n) * 4;
+                p.destination.x = (float)Math.Cos(n) * 4;
+                p.destination.y = i * 0.008f - (Roxik.Models.Count - 50) * 0.004f;
+                p.destination.z = (float)Math.Sin(n) * 4;
             }
             else
             {
-                p.dest.x = (float)random.NextDouble() * 14 - 7;
-                p.dest.y = (float)random.NextDouble() * 14 - 7;
-                p.dest.z = (float)random.NextDouble() * 14 - 7;
+                p.destination.x = (float)random.NextDouble() * 14 - 7;
+                p.destination.y = (float)random.NextDouble() * 14 - 7;
+                p.destination.z = (float)random.NextDouble() * 14 - 7;
             }
 
             n = (float)(n + d);
@@ -101,21 +101,21 @@ public class MotionController : MonoBehaviour
             p.speed = 0;
             p.acceleration = (float)random.NextDouble() * 0.05f + 0.022f;
             p.animate = false;
-            p.dest = new Vector3();
+            p.destination = new Vector3();
 
             var d1 = (float)(Math.Cos(s) * d2);
 
             if ((float)random.NextDouble() > 0.06f)
             {
-                p.dest.x = (float)Math.Cos(c) * d1;
-                p.dest.y = (float)Math.Sin(s) * d2;
-                p.dest.z = (float)Math.Sin(c) * d1;
+                p.destination.x = (float)Math.Cos(c) * d1;
+                p.destination.y = (float)Math.Sin(s) * d2;
+                p.destination.z = (float)Math.Sin(c) * d1;
             }
             else
             {
-                p.dest.x = (float)random.NextDouble() * 7 - 7;
-                p.dest.z = (float)random.NextDouble() * 7 - 7;
-                p.dest.y = (float)random.NextDouble() * 7 - 7;
+                p.destination.x = (float)random.NextDouble() * 7 - 7;
+                p.destination.z = (float)random.NextDouble() * 7 - 7;
+                p.destination.y = (float)random.NextDouble() * 7 - 7;
             }
 
             s += (float)r;
@@ -152,7 +152,7 @@ public class MotionController : MonoBehaviour
                     p.speed = 0;
                     p.acceleration = (float)a;
                     p.animate = false;
-                    p.dest = new Vector3
+                    p.destination = new Vector3
                     {
                         x = i * 0.8f + -(l - 1) * 0.8f * 0.5f,
                         y = j * 0.8f + -(l - 1) * 0.8f * 0.5f,
@@ -181,7 +181,7 @@ public class MotionController : MonoBehaviour
 
             if (random.NextDouble() > 0.05f)
             {
-                p.dest = new Vector3
+                p.destination = new Vector3
                 {
                     x = (float)(i * v + dx),
                     y = (float)(random.NextDouble() * d - d * 0.5f),
@@ -190,7 +190,7 @@ public class MotionController : MonoBehaviour
             }
             else
             {
-                p.dest = new Vector3
+                p.destination = new Vector3
                 {
                     x = (float)(random.NextDouble() * 14 - 7),
                     y = (float)(random.NextDouble() * 14 - 7),
@@ -228,13 +228,13 @@ public class MotionController : MonoBehaviour
                 p.speed = 0;
                 p.acceleration = (float)a;
                 p.animate = false;
-                p.dest = new Vector3();
-                p.dir = new Vector3();
+                p.destination = new Vector3();
+                p.direction = new Vector3();
 
-                p.dir.x = p.dir.y = p.dir.z = 0;
-                p.dest.x = (float)(i * 0.55f + d);
-                p.dest.y = (float)ty;
-                p.dest.z = (float)(j * 0.55f + d);
+                p.direction.x = p.direction.y = p.direction.z = 0;
+                p.destination.x = (float)(i * 0.55f + d);
+                p.destination.y = (float)ty;
+                p.destination.z = (float)(j * 0.55f + d);
             }
         }
 
@@ -245,7 +245,7 @@ public class MotionController : MonoBehaviour
             p.speed = 0;
             p.acceleration = (float)a;
             p.animate = false;
-            p.dest = new Vector3
+            p.destination = new Vector3
             {
                 x = (float)random.NextDouble() * 14 - 7,
                 y = (float)random.NextDouble() * 14 - 7,
@@ -265,11 +265,11 @@ public class MotionController : MonoBehaviour
         {
             var m = Roxik.Models[i];
             MotionProperties p = m.GetComponent<MotionProperties>();
-            p.dir = new Vector3();
+            p.direction = new Vector3();
             p.speed = 0;
             p.acceleration = 0.5f;
             p.animate = false;
-            p.dir.y = (float)random.NextDouble() * -0.2f;
+            p.direction.y = (float)random.NextDouble() * -0.2f;
         }
     }
 
@@ -283,7 +283,7 @@ public class MotionController : MonoBehaviour
             p.speed = 0;
             p.acceleration = 0.5f;
             p.animate = false;
-            p.dir = new Vector3
+            p.direction = new Vector3
             {
                 x = (float)random.NextDouble() * 0.25f - 0.125f,
                 y = (float)random.NextDouble() * 0.25f - 0.125f,
@@ -318,9 +318,9 @@ public class MotionController : MonoBehaviour
                         }
 
                         Vector3 modelPosition = m.transform.position;
-                        float c0 = p.dest.x - modelPosition.x;
-                        float c1 = p.dest.y - modelPosition.y;
-                        float c2 = p.dest.z - modelPosition.z;
+                        float c0 = p.destination.x - modelPosition.x;
+                        float c1 = p.destination.y - modelPosition.y;
+                        float c2 = p.destination.z - modelPosition.z;
                         
                         m.transform.position = new Vector3(
                             modelPosition.x + c0 * p.speed,
@@ -331,9 +331,9 @@ public class MotionController : MonoBehaviour
                         {
                             p.animate = true;
                             m.transform.position = new Vector3(
-                                p.dest.x,
-                                p.dest.y,
-                                p.dest.z
+                                p.destination.x,
+                                p.destination.y,
+                                p.destination.z
                             );
                         }
                     }
@@ -358,7 +358,7 @@ public class MotionController : MonoBehaviour
                     {
                         GameObject m = Roxik.Models[cc++];
                         MotionProperties p = m.GetComponent<MotionProperties>();
-                        p.dest.y = (float)cos;
+                        p.destination.y = (float)cos;
                     }
                 }
 
@@ -376,9 +376,9 @@ public class MotionController : MonoBehaviour
 
                     Vector3 modelPosition = m.transform.position;
                     m.transform.position = new Vector3 { 
-                        x = modelPosition.x + (p.dest.x - modelPosition.x) * p.speed,
-                        y = modelPosition.y + (p.dest.y - modelPosition.y) * p.speed,
-                        z = modelPosition.z + (p.dest.z - modelPosition.z) * p.speed
+                        x = modelPosition.x + (p.destination.x - modelPosition.x) * p.speed,
+                        y = modelPosition.y + (p.destination.y - modelPosition.y) * p.speed,
+                        z = modelPosition.z + (p.destination.z - modelPosition.z) * p.speed
                     };
                 }
 
@@ -394,13 +394,13 @@ public class MotionController : MonoBehaviour
                 {
                     GameObject m = Roxik.Models[i];
                     MotionProperties p = m.GetComponent<MotionProperties>();
-                    var y = m.transform.position.y + p.dir.y;
-                    p.dir.y -= 0.06f;
+                    var y = m.transform.position.y + p.direction.y;
+                    p.direction.y -= 0.06f;
 
                     if (y < -9)
                     {
                         y = -9;
-                        p.dir.y *= -p.acceleration;
+                        p.direction.y *= -p.acceleration;
                         p.acceleration *= 0.9f;
                     }
 
@@ -423,9 +423,9 @@ public class MotionController : MonoBehaviour
 
                     m.transform.position = new Vector3
                     {
-                        x = modelPosition.x + p.dir.x,
-                        y = modelPosition.y + p.dir.y,
-                        z = modelPosition.z + p.dir.z
+                        x = modelPosition.x + p.direction.x,
+                        y = modelPosition.y + p.direction.y,
+                        z = modelPosition.z + p.direction.z
                     };
                 }
 
