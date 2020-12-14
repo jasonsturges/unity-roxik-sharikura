@@ -345,6 +345,7 @@ public class MotionController : MonoBehaviour
                     _cutoff = Roxik.Models.Count;
 
                 break;
+            
             case MotionType.Wave:
                 var max = Math.Floor(Math.Sqrt(Roxik.Models.Count));
                 var cc = 0;
@@ -403,7 +404,12 @@ public class MotionController : MonoBehaviour
                         p.acceleration *= 0.9f;
                     }
 
-                    m.transform.position = new Vector3 {x = m.transform.position.x, y = y, z = m.transform.position.z};
+                    m.transform.position = new Vector3
+                    {
+                        x = m.transform.position.x, 
+                        y = y, 
+                        z = m.transform.position.z
+                    };
                 }
 
                 break;
