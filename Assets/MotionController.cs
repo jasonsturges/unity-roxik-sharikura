@@ -17,7 +17,6 @@ public class MotionController : MonoBehaviour
     private void ChangeMotion(MotionType motionType, int limit = -1)
     {
         Random random = new Random();
-        _motionType = motionType;
         _cutoff = 0;
         _frame = 0;
 
@@ -53,6 +52,7 @@ public class MotionController : MonoBehaviour
 
     void Cylinder()
     {
+        _motionType = MotionType.Cylinder;
         var random = new Random();
         var n = 0.0f;
         _r = (float)Math.PI * 2 / Roxik.Models.Count;
@@ -87,6 +87,7 @@ public class MotionController : MonoBehaviour
 
     void Sphere()
     {
+        _motionType = MotionType.Sphere;
         var random = new Random();
         var s = 0.0f;
         var c = 0.0f;
@@ -125,6 +126,7 @@ public class MotionController : MonoBehaviour
 
     void Cube()
     {
+        _motionType = MotionType.Cube;
         var random = new Random();
         var a = random.NextDouble() * 0.05f + 0.022f;
         var n = 0;
@@ -165,6 +167,7 @@ public class MotionController : MonoBehaviour
 
     void Tube()
     {
+        _motionType = MotionType.Tube;
         var random = new Random();
         var a = random.NextDouble() * 0.05f + 0.022f;
         var v = random.NextDouble() * 0.025f + 0.02f;
@@ -202,6 +205,7 @@ public class MotionController : MonoBehaviour
 
     void Wave()
     {
+        _motionType = MotionType.Wave;
         var random = new Random();
         var a = random.NextDouble() * 0.05f + 0.022f;
         var l = Math.Floor(Math.Sqrt(Roxik.Models.Count));
@@ -258,8 +262,9 @@ public class MotionController : MonoBehaviour
 
     void Gravity()
     {
-        var random = new Random();
+        _motionType = MotionType.Gravity;
         _sceneLimit = 60;
+        var random = new Random();
 
         for (var i = 0; i < Roxik.Models.Count; i++)
         {
@@ -275,6 +280,7 @@ public class MotionController : MonoBehaviour
 
     void Antigravity()
     {
+        _motionType = MotionType.Antigravity;
         var random = new Random();
         for (var i = 0; i < Roxik.Models.Count; i++)
         {
