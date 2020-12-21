@@ -4,11 +4,11 @@ using UnityEngine;
 
 enum MotionType
 {
-    Cylinder = 0,
-    Sphere = 1,
-    Cube = 2,
-    Tube = 3,
-    Wave = 4,
-    Gravity = 5,
-    Antigravity = 6
+    Antigravity = 0,
+    Cube = 1,
+    Cylinder = 2,
+    Gravity = 3,
+    Sphere = 4,
+    Tube = 5,
+    Wave = 6
 }
