@@ -5,6 +5,7 @@ using Random = System.Random;
 public class Roxik : MonoBehaviour
 {
     public static readonly List<GameObject> Models = new List<GameObject>();
+    private static readonly int Metallic = Shader.PropertyToID("_Metallic");
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +42,7 @@ public class Roxik : MonoBehaviour
                     sphere.AddComponent<MotionProperties>();
                     var sphereRenderer = sphere.GetComponent<Renderer>();
                     sphereRenderer.material.color = colors[random.Next(colors.Length)];
-                    sphereRenderer.material.SetFloat("_Metallic", 0.3f);
+                    sphereRenderer.material.SetFloat(Metallic, 0.3f);
 
                     Models.Add(sphere);
                 }
