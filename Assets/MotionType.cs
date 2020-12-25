@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-enum MotionType
+﻿enum MotionType
 {
     Antigravity = 0,
     Cube = 1,
