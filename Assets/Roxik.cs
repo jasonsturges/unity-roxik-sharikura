@@ -10,8 +10,11 @@ public class Roxik : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        const float bet = 0.7f;
-        const float offset = (8 - 1) * bet * 0.5f;
+        const int length = 8;
+        const float bet = 0.8f;
+        const float offset = (length - 1) * bet * 0.5f;
+        Random random = new Random();
+
         Color[] colors =
         {
             new Color(0.592f, 0.207f, 0.043f), 
@@ -22,9 +25,7 @@ public class Roxik : MonoBehaviour
             new Color(0.419f, 0.270f, 0.549f),
             new Color(0.478f, 0.270f, 0.149f)
         };
-        Random random = new Random();
 
-        const int length = 8;
         for (var i = 0; i < length; i++)
         {
             for (var j = 0; j < length; j++)
