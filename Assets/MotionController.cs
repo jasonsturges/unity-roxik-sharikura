@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using Random = System.Random;
 
@@ -295,7 +295,6 @@ public class MotionController : MonoBehaviour
                 y = (float)random.NextDouble() * 0.25f - 0.125f,
                 z = (float)random.NextDouble() * 0.25f - 0.125f
             };
-
         }
     }
 
@@ -333,6 +332,7 @@ public class MotionController : MonoBehaviour
                             modelPosition.y + c1 * p.speed,
                             modelPosition.z + c2 * p.speed
                         );
+                        
                         if (Math.Abs(c0) < 0.05 && Math.Abs(c1) < 0.05 && Math.Abs(c2) < 0.05)
                         {
                             p.animate = true;
