@@ -24,11 +24,12 @@ public class Roxik : MonoBehaviour
         };
         Random random = new Random();
 
-        for (var i = 0; i < 8; i++)
+        const int length = 8;
+        for (var i = 0; i < length; i++)
         {
-            for (var j = 0; j < 8; j++)
+            for (var j = 0; j < length; j++)
             {
-                for (var k = 0; k < 8; k++)
+                for (var k = 0; k < length; k++)
                 {
                     GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     sphere.transform.position = new Vector3
