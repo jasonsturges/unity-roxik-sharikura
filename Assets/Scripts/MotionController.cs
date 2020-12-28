@@ -50,77 +50,23 @@ public class MotionController : MonoBehaviour
         }
     }
 
-    void Cylinder()
+    void Antigravity()
     {
-        _motionType = MotionType.Cylinder;
+        _motionType = MotionType.Antigravity;
         var random = new Random();
-        var n = 0.0f;
-        _r = (float)Math.PI * 2 / Roxik.Models.Count;
-        var d = _r * Math.Floor(random.NextDouble() * 40 + 1);
-
         for (var i = 0; i < Roxik.Models.Count; i++)
         {
-            GameObject m = Roxik.Models[i];
+            var m = Roxik.Models[i];
             MotionProperties p = m.GetComponent<MotionProperties>();
             p.speed = 0;
-            p.acceleration = (float)random.NextDouble() * 0.05f + 0.022f;
+            p.acceleration = 0.5f;
             p.animate = false;
-            p.destination = new Vector3();
-
-            if (i < Roxik.Models.Count - 50)
+            p.direction = new Vector3
             {
-                p.destination.x = (float)Math.Cos(n) * 4;
-                p.destination.y = i * 0.008f - (Roxik.Models.Count - 50) * 0.004f;
-                p.destination.z = (float)Math.Sin(n) * 4;
-            }
-            else
-            {
-                p.destination.x = (float)random.NextDouble() * 14 - 7;
-                p.destination.y = (float)random.NextDouble() * 14 - 7;
-                p.destination.z = (float)random.NextDouble() * 14 - 7;
-            }
-
-            n = (float)(n + d);
-        }
-    }
-
-
-    void Sphere()
-    {
-        _motionType = MotionType.Sphere;
-        var random = new Random();
-        var s = 0.0f;
-        var c = 0.0f;
-        var r = Math.PI * 2 / Roxik.Models.Count;
-
-        var d = r * random.Next(1, 40);
-        var d2 = random.Next(3, 8);
-
-        foreach (var m in Roxik.Models)
-        {
-            MotionProperties p = m.GetComponent<MotionProperties>();
-            p.speed = 0;
-            p.acceleration = (float)random.NextDouble() * 0.05f + 0.022f;
-            p.animate = false;
-            p.destination = new Vector3();
-
-            var d1 = (float)(Math.Cos(s) * d2);
-
-            if ((float)random.NextDouble() > 0.06f)
-            {
-                p.destination.x = (float)Math.Cos(c) * d1;
-                p.destination.y = (float)Math.Sin(s) * d2;
-                p.destination.z = (float)Math.Sin(c) * d1;
-            }
-            else
-            {
-                p.destination.x = (float)random.NextDouble() * 7 - 7;
-                p.destination.z = (float)random.NextDouble() * 7 - 7;
-                p.destination.y = (float)random.NextDouble() * 7 - 7;
-            }
-
-            s += (float)r;
-            c += (float)d;
+                x = (float)random.NextDouble() * 0.25f - 0.125f,
+                y = (float)random.NextDouble() * 0.25f - 0.125f,
+                z = (float)random.NextDouble() * 0.25f - 0.125f
+            };
         }
     }
 
@@ -162,6 +108,97 @@ public class MotionController : MonoBehaviour
                     };
                 }
             }
+        }
+    }
+
+    void Cylinder()
+    {
+        _motionType = MotionType.Cylinder;
+        var random = new Random();
+        var n = 0.0f;
+        _r = (float)Math.PI * 2 / Roxik.Models.Count;
+        var d = _r * Math.Floor(random.NextDouble() * 40 + 1);
+
+        for (var i = 0; i < Roxik.Models.Count; i++)
+        {
+            GameObject m = Roxik.Models[i];
+            MotionProperties p = m.GetComponent<MotionProperties>();
+            p.speed = 0;
+            p.acceleration = (float)random.NextDouble() * 0.05f + 0.022f;
+            p.animate = false;
+            p.destination = new Vector3();
+
+            if (i < Roxik.Models.Count - 50)
+            {
+                p.destination.x = (float)Math.Cos(n) * 4;
+                p.destination.y = i * 0.008f - (Roxik.Models.Count - 50) * 0.004f;
+                p.destination.z = (float)Math.Sin(n) * 4;
+            }
+            else
+            {
+                p.destination.x = (float)random.NextDouble() * 14 - 7;
+                p.destination.y = (float)random.NextDouble() * 14 - 7;
+                p.destination.z = (float)random.NextDouble() * 14 - 7;
+            }
+
+            n = (float)(n + d);
+        }
+    }
+
+    void Gravity()
+    {
+        _motionType = MotionType.Gravity;
+        _sceneLimit = 60;
+        var random = new Random();
+
+        for (var i = 0; i < Roxik.Models.Count; i++)
+        {
+            var m = Roxik.Models[i];
+            MotionProperties p = m.GetComponent<MotionProperties>();
+            p.direction = new Vector3();
+            p.speed = 0;
+            p.acceleration = 0.5f;
+            p.animate = false;
+            p.direction.y = (float)random.NextDouble() * -0.2f;
+        }
+    }
+
+    void Sphere()
+    {
+        _motionType = MotionType.Sphere;
+        var random = new Random();
+        var s = 0.0f;
+        var c = 0.0f;
+        var r = Math.PI * 2 / Roxik.Models.Count;
+
+        var d = r * random.Next(1, 40);
+        var d2 = random.Next(3, 8);
+
+        foreach (var m in Roxik.Models)
+        {
+            MotionProperties p = m.GetComponent<MotionProperties>();
+            p.speed = 0;
+            p.acceleration = (float)random.NextDouble() * 0.05f + 0.022f;
+            p.animate = false;
+            p.destination = new Vector3();
+
+            var d1 = (float)(Math.Cos(s) * d2);
+
+            if ((float)random.NextDouble() > 0.06f)
+            {
+                p.destination.x = (float)Math.Cos(c) * d1;
+                p.destination.y = (float)Math.Sin(s) * d2;
+                p.destination.z = (float)Math.Sin(c) * d1;
+            }
+            else
+            {
+                p.destination.x = (float)random.NextDouble() * 7 - 7;
+                p.destination.z = (float)random.NextDouble() * 7 - 7;
+                p.destination.y = (float)random.NextDouble() * 7 - 7;
+            }
+
+            s += (float)r;
+            c += (float)d;
         }
     }
 
@@ -260,44 +297,6 @@ public class MotionController : MonoBehaviour
         }
     }
 
-    void Gravity()
-    {
-        _motionType = MotionType.Gravity;
-        _sceneLimit = 60;
-        var random = new Random();
-
-        for (var i = 0; i < Roxik.Models.Count; i++)
-        {
-            var m = Roxik.Models[i];
-            MotionProperties p = m.GetComponent<MotionProperties>();
-            p.direction = new Vector3();
-            p.speed = 0;
-            p.acceleration = 0.5f;
-            p.animate = false;
-            p.direction.y = (float)random.NextDouble() * -0.2f;
-        }
-    }
-
-    void Antigravity()
-    {
-        _motionType = MotionType.Antigravity;
-        var random = new Random();
-        for (var i = 0; i < Roxik.Models.Count; i++)
-        {
-            var m = Roxik.Models[i];
-            MotionProperties p = m.GetComponent<MotionProperties>();
-            p.speed = 0;
-            p.acceleration = 0.5f;
-            p.animate = false;
-            p.direction = new Vector3
-            {
-                x = (float)random.NextDouble() * 0.25f - 0.125f,
-                y = (float)random.NextDouble() * 0.25f - 0.125f,
-                z = (float)random.NextDouble() * 0.25f - 0.125f
-            };
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -306,9 +305,9 @@ public class MotionController : MonoBehaviour
 
         switch (_motionType)
         {
+            case MotionType.Cube:
             case MotionType.Cylinder:
             case MotionType.Sphere:
-            case MotionType.Cube:
             case MotionType.Tube:
                 for (int i = 0; i < _cutoff; i++)
                 {
@@ -349,6 +348,47 @@ public class MotionController : MonoBehaviour
                 _cutoff += maxp;
                 if (_cutoff > Roxik.Models.Count)
                     _cutoff = Roxik.Models.Count;
+
+                break;
+
+            case MotionType.Antigravity:
+                for (var i = 0; i < _cutoff; i++)
+                {
+                    GameObject m = Roxik.Models[i];
+                    MotionProperties p = m.GetComponent<MotionProperties>();
+                    Vector3 modelPosition = m.transform.position;
+
+                    m.transform.position = new Vector3
+                    {
+                        x = modelPosition.x + p.direction.x,
+                        y = modelPosition.y + p.direction.y,
+                        z = modelPosition.z + p.direction.z
+                    };
+                }
+
+                _cutoff += 30;
+                if (_cutoff > Roxik.Models.Count)
+                    _cutoff = Roxik.Models.Count;
+
+                break;
+
+            case MotionType.Gravity:
+                for (var i = 0; i < Roxik.Models.Count; i++)
+                {
+                    GameObject m = Roxik.Models[i];
+                    MotionProperties p = m.GetComponent<MotionProperties>();
+                    var y = m.transform.position.y + p.direction.y;
+                    p.direction.y -= 0.06f;
+
+                    if (y < -9)
+                    {
+                        y = -9;
+                        p.direction.y *= -p.acceleration;
+                        p.acceleration *= 0.9f;
+                    }
+
+                    m.transform.position = new Vector3 {x = m.transform.position.x, y = y, z = m.transform.position.z};
+                }
 
                 break;
 
@@ -396,51 +436,6 @@ public class MotionController : MonoBehaviour
 
                 break;
 
-            case MotionType.Gravity:
-                for (var i = 0; i < Roxik.Models.Count; i++)
-                {
-                    GameObject m = Roxik.Models[i];
-                    MotionProperties p = m.GetComponent<MotionProperties>();
-                    var y = m.transform.position.y + p.direction.y;
-                    p.direction.y -= 0.06f;
-
-                    if (y < -9)
-                    {
-                        y = -9;
-                        p.direction.y *= -p.acceleration;
-                        p.acceleration *= 0.9f;
-                    }
-
-                    m.transform.position = new Vector3
-                    {
-                        x = m.transform.position.x, 
-                        y = y, 
-                        z = m.transform.position.z
-                    };
-                }
-
-                break;
-
-            case MotionType.Antigravity:
-                for (var i = 0; i < _cutoff; i++)
-                {
-                    GameObject m = Roxik.Models[i];
-                    MotionProperties p = m.GetComponent<MotionProperties>();
-                    Vector3 modelPosition = m.transform.position;
-
-                    m.transform.position = new Vector3
-                    {
-                        x = modelPosition.x + p.direction.x,
-                        y = modelPosition.y + p.direction.y,
-                        z = modelPosition.z + p.direction.z
-                    };
-                }
-
-                _cutoff += 30;
-                if (_cutoff > Roxik.Models.Count)
-                    _cutoff = Roxik.Models.Count;
-
-                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
