@@ -24,26 +24,26 @@ public class MotionController : MonoBehaviour
 
         switch (motionType)
         {
-            case MotionType.Cylinder:
-                Cylinder();
-                break;
-            case MotionType.Sphere:
-                Sphere();
+            case MotionType.Antigravity:
+                Antigravity();
                 break;
             case MotionType.Cube:
                 Cube();
+                break;
+            case MotionType.Cylinder:
+                Cylinder();
+                break;
+            case MotionType.Gravity:
+                Gravity();
+                break;
+            case MotionType.Sphere:
+                Sphere();
                 break;
             case MotionType.Tube:
                 Tube();
                 break;
             case MotionType.Wave:
                 Wave();
-                break;
-            case MotionType.Gravity:
-                Gravity();
-                break;
-            case MotionType.Antigravity:
-                Antigravity();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(motionType), motionType, null);
