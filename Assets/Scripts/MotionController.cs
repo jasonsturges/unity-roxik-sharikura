@@ -326,13 +326,13 @@ public class MotionController : MonoBehaviour
                         float c0 = p.destination.x - modelPosition.x;
                         float c1 = p.destination.y - modelPosition.y;
                         float c2 = p.destination.z - modelPosition.z;
-                        
+
                         m.transform.position = new Vector3(
                             modelPosition.x + c0 * p.speed,
                             modelPosition.y + c1 * p.speed,
                             modelPosition.z + c2 * p.speed
                         );
-                        
+
                         if (Math.Abs(c0) < 0.05 && Math.Abs(c1) < 0.05 && Math.Abs(c2) < 0.05)
                         {
                             p.animate = true;
@@ -351,7 +351,7 @@ public class MotionController : MonoBehaviour
                     _cutoff = Roxik.Models.Count;
 
                 break;
-            
+
             case MotionType.Wave:
                 var max = Math.Floor(Math.Sqrt(Roxik.Models.Count));
                 var cc = 0;
@@ -381,7 +381,8 @@ public class MotionController : MonoBehaviour
                     }
 
                     Vector3 modelPosition = m.transform.position;
-                    m.transform.position = new Vector3 { 
+                    m.transform.position = new Vector3
+                    {
                         x = modelPosition.x + (p.destination.x - modelPosition.x) * p.speed,
                         y = modelPosition.y + (p.destination.y - modelPosition.y) * p.speed,
                         z = modelPosition.z + (p.destination.z - modelPosition.z) * p.speed
