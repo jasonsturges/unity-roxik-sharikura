@@ -388,7 +388,9 @@ public class MotionController : MonoBehaviour
                         p.acceleration *= 0.9f;
                     }
 
-                    m.transform.position = new Vector3 {x = m.transform.position.x, y = y, z = m.transform.position.z};
+                    var position = m.transform.position;
+                    position = new Vector3 {x = position.x, y = y, z = position.z};
+                    m.transform.position = position;
                 }
 
                 break;
