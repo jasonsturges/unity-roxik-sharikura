@@ -117,8 +117,8 @@ public class MotionController : MonoBehaviour
         _motionType = MotionType.Cylinder;
         var random = new Random();
         var n = 0.0f;
-        _r = (float)Math.PI * 2 / Roxik.Models.Count;
-        var d = _r * Math.Floor(random.NextDouble() * 40 + 1);
+        var r = (float)Math.PI * 2 / Roxik.Models.Count;
+        var d = r * Math.Floor(random.NextDouble() * 40 + 1);
 
         for (var i = 0; i < Roxik.Models.Count; i++)
         {
