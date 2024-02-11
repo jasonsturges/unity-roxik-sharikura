@@ -8,7 +8,7 @@ public class Roxik : MonoBehaviour
     private static readonly int Metallic = Shader.PropertyToID("_Metallic");
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         const int length = 8;
         const float bet = 0.8f;
