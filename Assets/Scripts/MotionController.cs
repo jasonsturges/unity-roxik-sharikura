@@ -6,21 +6,21 @@ using Random = System.Random;
 public class MotionController : MonoBehaviour
 {
     private MotionType _motionType = MotionType.Cube;
-    private float _cutoff;
-    private float _r;
-    private float _r0;
-    private float _rp;
-    private float _rl;
+    private float cutoff;
+    private float waveRadius;
+    private float waveRadiusInitial;
+    private float waveRadiusIncrement;
+    private float waveLength;
 
     void Start()
     {
-        Invoke("OnChangeMotion", UnityEngine.Random.Range(0.5f, 1.5f));
+        Invoke(nameof(OnChangeMotion), UnityEngine.Random.Range(0.5f, 1.5f));
     }
 
     void OnChangeMotion()
     {
         ChangeMotion();
-        Invoke("OnChangeMotion", UnityEngine.Random.Range(0.5f, 1.5f));
+        Invoke(nameof(OnChangeMotion), UnityEngine.Random.Range(0.5f, 1.5f));
     }
 
     private void ChangeMotion(MotionType? motionType = null)
@@ -31,7 +31,7 @@ public class MotionController : MonoBehaviour
             motionType = (MotionType)Enum.GetValues(typeof(MotionType)).GetValue(random.Next(0, 7));
         }
 
-        _cutoff = 0;
+        cutoff = 0;
 
         switch (motionType)
         {
@@ -81,20 +81,8 @@ public class MotionController : MonoBehaviour
         _motionType = MotionType.Cube;
         var random = new Random();
         var a = random.NextDouble() * 0.05f + 0.022f;
+        var l = (int)Math.Floor(Math.Cbrt(Roxik.Models.Count));
         var n = 0;
-        var l = 1;
-
-        // TODO: Update to `Math.Cbrt()` when .NET Standard 2.1 supported
-        while (true)
-        {
-            if (l * l * l > Roxik.Models.Count)
-            {
-                l--;
-                break;
-            }
-
-            l++;
-        }
 
         for (var i = 0; i < l; i++)
         {
@@ -241,15 +229,15 @@ public class MotionController : MonoBehaviour
         var s = random.NextDouble() + 1;
         var n = 0;
         GameObject m;
-        _r = 0;
-        _r0 = 0;
-        _rl = (float)random.NextDouble() + 1;
-        _rp = (float)random.NextDouble() * 0.3f + 0.1f;
+        waveRadius = 0;
+        waveRadiusInitial = 0;
+        waveLength = (float)random.NextDouble() + 1;
+        waveRadiusIncrement = (float)random.NextDouble() * 0.3f + 0.1f;
 
         for (var i = 0; i < l; i++)
         {
-            var ty = Math.Cos(_r) * s;
-            _r += (float)t;
+            var ty = Math.Cos(waveRadius) * s;
+            waveRadius += (float)t;
 
             for (var j = 0; j < l; j++)
             {
@@ -294,7 +282,7 @@ public class MotionController : MonoBehaviour
             case MotionType.Cylinder:
             case MotionType.Sphere:
             case MotionType.Tube:
-                for (int i = 0; i < _cutoff; i++)
+                for (int i = 0; i < cutoff; i++)
                 {
                     GameObject m = Roxik.Models[i];
                     MotionProperties p = m.GetComponent<MotionProperties>();
@@ -330,14 +318,14 @@ public class MotionController : MonoBehaviour
                 }
 
                 maxp = (float)Math.Floor(Roxik.Models.Count / 40.0f);
-                _cutoff += maxp * delta;
-                if (_cutoff > Roxik.Models.Count)
-                    _cutoff = Roxik.Models.Count;
+                cutoff += maxp * delta;
+                if (cutoff > Roxik.Models.Count)
+                    cutoff = Roxik.Models.Count;
 
                 break;
 
             case MotionType.Antigravity:
-                for (var i = 0; i < _cutoff; i++)
+                for (var i = 0; i < cutoff; i++)
                 {
                     GameObject m = Roxik.Models[i];
                     MotionProperties p = m.GetComponent<MotionProperties>();
@@ -346,9 +334,9 @@ public class MotionController : MonoBehaviour
                     m.transform.position = new Vector3 {x = modelPosition.x + p.direction.x * delta, y = modelPosition.y + p.direction.y * delta, z = modelPosition.z + p.direction.z * delta};
                 }
 
-                _cutoff += 30.0f * delta;
-                if (_cutoff > Roxik.Models.Count)
-                    _cutoff = Roxik.Models.Count;
+                cutoff += 30.0f * delta;
+                if (cutoff > Roxik.Models.Count)
+                    cutoff = Roxik.Models.Count;
 
                 break;
 
@@ -380,8 +368,8 @@ public class MotionController : MonoBehaviour
 
                 for (var i = 0; i < max; i++)
                 {
-                    var cos = Math.Cos(_r) * _rl;
-                    _r += _rp * delta;
+                    var cos = Math.Cos(waveRadius) * waveLength;
+                    waveRadius += waveRadiusIncrement * delta;
                     for (var j = 0; j < max; j++)
                     {
                         GameObject m = Roxik.Models[cc++];
@@ -390,10 +378,10 @@ public class MotionController : MonoBehaviour
                     }
                 }
 
-                _r0 += 0.11f * delta;
-                _r = _r0;
+                waveRadiusInitial += 0.11f * delta;
+                waveRadius = waveRadiusInitial;
 
-                for (var i = 0; i < _cutoff; i++)
+                for (var i = 0; i < cutoff; i++)
                 {
                     GameObject m = Roxik.Models[i];
                     MotionProperties p = m.GetComponent<MotionProperties>();
@@ -412,9 +400,9 @@ public class MotionController : MonoBehaviour
                 }
 
                 maxp = (float)Math.Floor(Roxik.Models.Count / 40.0f);
-                _cutoff += maxp * delta;
-                if (_cutoff > Roxik.Models.Count)
-                    _cutoff = Roxik.Models.Count;
+                cutoff += maxp * delta;
+                if (cutoff > Roxik.Models.Count)
+                    cutoff = Roxik.Models.Count;
 
                 break;
 
